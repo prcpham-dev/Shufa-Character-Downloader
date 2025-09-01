@@ -24,7 +24,7 @@ def searchImg(author, word, wait_time=15):
     Use Selenium (blocking) to find the full-size image URL for given word+author.
     """
     driver = webdriver.Chrome()
-    driver.get("https://ios.shufazidian.com/")
+    driver.get("http://shufazidian.com/s.php")
 
     # enter word into search box
     search_box = driver.find_element(By.ID, "wd")
@@ -60,7 +60,9 @@ def searchImg(author, word, wait_time=15):
 
 
 async def downloadImg(author, word, out_dir="images"):
-    """Main async wrapper: search with Selenium, then download with aiohttp."""
+    """
+    Main async wrapper: search with Selenium, then download with aiohttp.
+    """
     img_url = await asyncio.to_thread(searchImg, author, word)
     if not img_url:
         print(f"❌ No image found for {word} by {author}")
