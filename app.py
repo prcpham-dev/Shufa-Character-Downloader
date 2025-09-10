@@ -110,7 +110,7 @@ class App(tk.Tk):
         self.characters_frame.rowconfigure(1, weight=1)
         self.characters_frame.columnconfigure(0, weight=1)
 
-        ttk.Label(self.characters_frame, text="Characters / Poem:")\
+        ttk.Label(self.characters_frame, text="Chinese Text:")\
             .grid(row=0, column=0, sticky="w", padx=8, pady=(8, 0))
         self.characters_text = tk.Text(self.characters_frame, wrap="word", height=12)
         self.characters_text.grid(row=1, column=0, sticky="nsew", padx=8, pady=8)

@@ -1,27 +1,10 @@
-# Dad's Shufa Chinese Characters
-This project helps you automatically download Chinese calligraphy images from [shufazidian.com](http://shufazidian.com/s.php)
+# Shufa Character Downloader
+This project helps my dad to automatically download Chinese calligraphy images from [shufazidian.com](http://shufazidian.com/s.php) to help his with his drawing.
 
 ## Features
 - Search for calligraphy images by author and character/phrase.
 - Automatically match images with the chosen author.
 - Save images to a local `images/` folder.
-
-## How to Use
-
-1. **Prepare your input file:**
-- Open the text file named `shufa.txt`.
-- The first line is the author's name (e.g., `苏轼`).
-- Each following line is a character or phrase you want to search.
-- Example:
-    ```
-    苏轼
-    饮马渡秋水
-    水寒风似刀
-    平沙日未没
-    ```
-
-2. **Run the program:** 
-- The script will search each character/phrase on the website, filter by author, and download matching images to the `images/` folder.
 
 ## Setup
 
@@ -50,11 +33,59 @@ This project helps you automatically download Chinese calligraphy images from [s
     pip install -r requirements.txt
     ```
 
-4. **Download and install [ChromeDriver](https://chromedriver.chromium.org/downloads) matching your Chrome version.**
+4. **Setup WebDriver:**
 
-5. **Update your `shufa.txt` in the project folder.**
+    1. **Check your Chrome version:**
+    - Open Chrome and go to `chrome://settings/help`.
 
-6. **Run the script:**
-   ```bash
-   python main.py
-   ```
+    2. **Download ChromeDriver:**
+    - Go to [ChromeDriver Downloads](https://chromedriver.chromium.org/downloads).
+    - Pick the version that matches your Chrome.
+
+    3. **Install ChromeDriver:**
+    - **Windows:** Place `chromedriver.exe` in the project folder or add it to PATH.
+    - **Mac/Linux:** Move it to `/usr/local/bin/` and make it executable:
+        ```bash
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
+        ```
+
+    4. **Verify installation:**
+    - Open a terminal/command prompt and run:
+        ```bash
+        chromedriver --version
+        ```
+
+    Tip: Make sure you download the correct ChromeDriver for your system.
+    - If any step is unclear, you can ask ChatGPT for help. For example, copy and paste this prompt:
+
+        **Prompt:**  
+        "I’m setting up ChromeDriver for the Shufa Character Downloader on [Windows/Mac/Linux].  
+        My Chrome version is [paste version here].  
+        Can you tell me exactly which ChromeDriver to download and how to install it?"
+    - **Windows:** Choose the version that matches your Chrome browser and your system type (64-bit or 32-bit).  
+    - **macOS/Linux:** Download the build for your OS (Intel or Apple Silicon for mac).  
+
+5. **Run the program:**
+    - **Windows:** Press myAppWin
+    - **Mac:** Press myAppMac_Linux
+
+## How to Use
+
+1. **Fill in your input:**
+- **Wait time:** Number of seconds to wait between downloads (helps avoid being blocked and stuck on one task)
+- **Batch Size:** Number of character being progress at a time.
+- **Amount:** Total number of images to download per character.
+- **Author:** Enter the calligraphy master’s name (e.g., 苏轼).
+- **Character Type:** Choose calligraphy style (e.g., 行书, 草书, 楷书).
+- **Chinese Text:** Paste or type in Chinese characters, phrases, or full poems you want to download. !!!Only keep Chinese character
+
+2. **Start the download:**
+- Click **Start** to begin fetching images.
+- Progress and logs will be shown in **Logs** tab.
+- Download images are saved into the local images/ folder, organized by character.
+
+3. **Manage images:**
+- Use **Delete Images** to clear previously download images.
+- Use **Save Settings** to preserve your current configuration for next time.
+
