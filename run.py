@@ -11,12 +11,15 @@ async def run(author, character_type_value, characters, batch_size=4, wait_time=
     for i in range(0, len(characters), batch_size):
         batch = characters[i:i + batch_size]
 
-        search_tasks = [
-            asyncio.to_thread(
-                searchImg, author, character, character_type_value, wait_time, headless, count
+        search_tasks = []
+        for character in batch:
+            print(f"📝 Working on {character} ...")
+            search_tasks.append(
+                asyncio.to_thread(
+                    searchImg, author, character, character_type_value, wait_time, headless, count
+                )
             )
-            for character in batch
-        ]
+
         search_results = await asyncio.gather(*search_tasks)
 
         download_tasks = []

@@ -67,10 +67,21 @@ This project helps my dad to automatically download Chinese calligraphy images f
     - **macOS/Linux:** Download the build for your OS (Intel or Apple Silicon for mac).  
 
 5. **Run the program:**
-    run 
-    ```bash
-    python app.py
-    ```
+    - **Windows:**  
+        Double-click `myApp.py`.
+        If it opens in an editor instead of running, right-click → *Open with* → choose **Python** and check “Always use this app”.
+
+    - **macOS:**  
+        Double-click `myApp.py`.  
+        If it opens in a text editor instead of running:  
+        1. Right-click `myApp.py` → *Get Info*.  
+        2. Under *Open with*, select **Python Launcher**.  
+        3. Click **Change All…** so `.py` files always use Python.  
+
+    - **Linux:**  
+        Make the file executable (one-time setup):  
+        ```bash
+        chmod +x myApp.py
 
 ## How to Use
 
@@ -90,4 +101,3 @@ This project helps my dad to automatically download Chinese calligraphy images f
 3. **Manage images:**
 - Use **Delete Images** to clear previously download images.
 - Use **Save Settings** to preserve your current configuration for next time.
-
