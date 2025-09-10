@@ -67,8 +67,10 @@ This project helps my dad to automatically download Chinese calligraphy images f
     - **macOS/Linux:** Download the build for your OS (Intel or Apple Silicon for mac).  
 
 5. **Run the program:**
-    - **Windows:** Press myAppWin
-    - **Mac:** Press myAppMac_Linux
+    run 
+    ```bash
+    python app.py
+    ```
 
 ## How to Use
 
