@@ -1,5 +1,5 @@
 # Shufa Character Downloader
-This project helps my dad to automatically download Chinese calligraphy images from [shufazidian.com](http://shufazidian.com/s.php) to help his with his drawing.
+This project helps my dad automatically download Chinese calligraphy images from [shufazidian.com](http://shufazidian.com/s.php) to assist him with his drawing.
 
 ## Features
 - Search for calligraphy images by author and character/phrase.
@@ -16,13 +16,13 @@ This project helps my dad to automatically download Chinese calligraphy images f
     brew install python
     ```
 
-2. **(Recommended) Create a virtual environment:**
+2. **Create a virtual environment:**
 - **Windows:**
     ```bat
     python -m venv venv
     venv\Scripts\activate
     ```
-- **Mac:**
+- **macOS and Linux:**
     ```bash
     python3 -m venv venv
     source venv/bin/activate
@@ -34,7 +34,6 @@ This project helps my dad to automatically download Chinese calligraphy images f
     ```
 
 4. **Setup WebDriver:**
-
     1. **Check your Chrome version:**
     - Open Chrome and go to `chrome://settings/help`.
 
@@ -67,21 +66,21 @@ This project helps my dad to automatically download Chinese calligraphy images f
     - **macOS/Linux:** Download the build for your OS (Intel or Apple Silicon for mac).  
 
 5. **Run the program:**
-    - **Windows:**  
-        Double-click `myApp.py`.
-        If it opens in an editor instead of running, right-click → *Open with* → choose **Python** and check “Always use this app”.
+- **Windows:**  
+Double-click `myApp.py`.
+If it opens in an editor instead of running, right-click → *Open with* → choose **Python** and check “Always use this app”.
 
-    - **macOS:**  
-        Double-click `myApp.py`.  
-        If it opens in a text editor instead of running:  
-        1. Right-click `myApp.py` → *Get Info*.  
-        2. Under *Open with*, select **Python Launcher**.  
-        3. Click **Change All…** so `.py` files always use Python.  
+- **macOS:**  
+Double-click `myApp.py`.  
+If it opens in a text editor instead of running:  
+    1. Right-click `myApp.py` → *Get Info*.  
+    2. Under *Open with*, select **Python Launcher**.  
+    3. Click **Change All…** so `.py` files always use Python.  
 
-    - **Linux:**  
-        Make the file executable (one-time setup):  
-        ```bash
-        chmod +x myApp.py
+- **Linux:**  
+Make the file executable (one-time setup):  
+    ```bash
+    chmod +x myApp.py
 
 ## How to Use
 
