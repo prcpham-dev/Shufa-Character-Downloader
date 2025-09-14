@@ -6,6 +6,26 @@ This project helps my dad automatically download Chinese calligraphy images from
 - Automatically match images with the chosen author.
 - Save images to a local `images/` folder.
 
+## Project images:
+```
+Shufa-Character-Downloader
+├── images/                    # Downloaded calligraphy images (organized by character)
+├── src/
+│   ├── processHelpers/        # Helper scripts for different processing steps
+│   │   ├── download.py        # Handles downloading calligraphy images
+│   │   ├── preprocess.py      # Load, save and prepare the settings
+│   │   ├── scrape.py          # Scrapes image URLs and metadata from shufazidian.com
+│   │   └── textRedirector.py  # Redirects or maps text inputs for interface
+│   ├── engine.py              # Core engine that orchestrates scraping, downloading, and preprocessing
+│   ├── interface.py           # User interface logic
+│   └── setting.json           # Configuration file to store user settings
+├── myApp.py                   # Main entry point to launch the program
+├── requirements.txt           # Python dependencies
+├── README.md                  # Project documentation
+├── LICENSE                    # License information
+└── .gitignore                 # Git ignore file
+```
+
 ## Setup
 
 1. **Install Python (if not already installed):**
