@@ -72,7 +72,7 @@ class App(tk.Tk):
         ttk.Label(settings_frame, text="Processing Amount:").grid(row=0, column=3, sticky="w", padx=(6, 4), pady=(8, 4))
         self.batch_size_var = tk.IntVar(value=self.settings.get("batch_size", 4))
         ttk.Scale(
-            settings_frame, from_=1, to=6, variable=self.batch_size_var,
+            settings_frame, from_=1, to=10, variable=self.batch_size_var,
             orient="horizontal", length=160,
             command=lambda v: self.force_int(self.batch_size_var, v)
         ).grid(row=0, column=4, sticky="ew", padx=(0, 6), pady=(8, 4))
