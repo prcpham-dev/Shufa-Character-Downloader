@@ -20,6 +20,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.worker = None
+        self.cancel_event = threading.Event()
         self.title("Shufa Downloader")
         self.geometry("860x600")
 
@@ -146,6 +147,8 @@ class App(tk.Tk):
         if self.is_running:
             return
 
+        self.cancel_event.clear()
+
         # Basic ui changes
         self.is_running = True
         self.save_settings()
@@ -181,6 +184,7 @@ class App(tk.Tk):
                 author=author, character_type_value=character_type_value,
                 characters=characters, wait_time=wait_time,
                 batch_size=batch_size, count=count, headless=True,
+                cancel_event=self.cancel_event,
             )
         except Exception as e:
             print(f"⚠️ Runner error: {e}")
@@ -191,6 +195,8 @@ class App(tk.Tk):
         """
         Stop button.
         """
+        self.cancel_event.set()
+        print("⏹️ Stopping...")
         # Will finish
         self.on_done()
 
