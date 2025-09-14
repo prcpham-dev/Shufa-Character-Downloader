@@ -1,9 +1,11 @@
-import os, sys, threading
+import os, sys, threading, platform, subprocess
 import tkinter as tk
 from tkinter import ttk
-from src.preprocess import load_settings, save_settings, prepare_data
-from run import run_main
-from src.textRedirector import TextRedirector
+from src.processHelpers.preprocess import load_settings, save_settings, prepare_data
+from src.processHelpers.textRedirector import TextRedirector
+from engine import run_main
+from pathlib import Path
+
 
 CHAR_TYPE_VALUE = {
     "行书": "8", "楷书": "9", 
@@ -46,6 +48,9 @@ class App(tk.Tk):
         self.status_var = tk.StringVar(value="Status: Idle")
         ttk.Label(control_row, textvariable=self.status_var).pack(side="right")
 
+        self.open_img_btn = ttk.Button(control_row, text="Open File", command=self.open_image)
+        self.open_img_btn.pack(side="left", padx=(8, 0))
+
         # ---------- Settings ----------
         settings_frame = ttk.LabelFrame(self, text="Settings")
         settings_frame.pack(fill="x", padx=10, pady=(10, 0))
@@ -64,7 +69,7 @@ class App(tk.Tk):
         ttk.Label(settings_frame, textvariable=self.wait_time_var, width=4)\
             .grid(row=0, column=2, sticky="w", padx=(0, 6), pady=(8, 4))
 
-        ttk.Label(settings_frame, text="Batch Size:").grid(row=0, column=3, sticky="w", padx=(6, 4), pady=(8, 4))
+        ttk.Label(settings_frame, text="Processing Amount:").grid(row=0, column=3, sticky="w", padx=(6, 4), pady=(8, 4))
         self.batch_size_var = tk.IntVar(value=self.settings.get("batch_size", 4))
         ttk.Scale(
             settings_frame, from_=1, to=10, variable=self.batch_size_var,
@@ -75,7 +80,7 @@ class App(tk.Tk):
             .grid(row=0, column=5, sticky="w", padx=(0, 6), pady=(8, 4))
 
         # Row 1: Amount + Character Type
-        ttk.Label(settings_frame, text="Amount:").grid(row=1, column=0, sticky="w", padx=(6, 4), pady=(4, 4))
+        ttk.Label(settings_frame, text="Download Amount:").grid(row=1, column=0, sticky="w", padx=(6, 4), pady=(4, 4))
         self.count_var = tk.IntVar(value=self.settings.get("count", 5))
         ttk.Scale(
             settings_frame, from_=0, to=10, variable=self.count_var,
@@ -243,6 +248,24 @@ class App(tk.Tk):
         else:
             print("No images folder found.")
 
+    def open_image(self):
+        """
+        Open the first image in the images/ folder.
+        """
+        folder = Path(__file__).resolve().parent.parent / "images"
+        if not folder.exists():
+            print("⚠️ images/ folder not found.")
+            return
+
+        print(f"📂 Opening folder: {folder}")
+
+        if platform.system() == "Windows":               # Windows   
+            os.startfile(folder)
+        elif platform.system() == "Darwin":
+            subprocess.Popen(["open", str(folder)])      # macOS
+        else:
+            subprocess.Popen(["xdg-open", str(folder)])  # Linux and others
+
     def set_status(self, text: str):
         """
         Set the status text.
@@ -254,7 +277,6 @@ class App(tk.Tk):
         Handle window close event.
         """
         self.destroy()
-
 
 if __name__ == "__main__":
     App().mainloop()

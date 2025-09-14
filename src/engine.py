@@ -1,6 +1,6 @@
 import os,asyncio
-from src.scrape import searchImg
-from src.download import downloadImg
+from src.processHelpers.scrape import searchImg
+from src.processHelpers.download import downloadImg
 
 async def search_wrapper(character, author, character_type_value, wait_time, headless, count, semaphore):
     print(f"📝 Working on {character} ...")

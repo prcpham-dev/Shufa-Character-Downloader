@@ -1,7 +1,7 @@
 {
   "wait_time": 15,
-  "batch_size": 4,
-  "count": 5,
+  "batch_size": 2,
+  "count": 2,
   "character_type_value": "8",
   "author": "苏轼",
   "characters": "饮马渡\n\n"

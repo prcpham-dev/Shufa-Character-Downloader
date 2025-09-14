@@ -2,9 +2,8 @@
 """
 Launcher for Shufa Downloader
 - Double-clickable
-- Uses venv if it exists, else falls back to system Python
-- Forces working directory to project root (fixes 'Start does nothing')
-- Works on Windows, macOS, Linux
+- Prefers venv Python
+- Runs interface from src/
 """
 
 import os
@@ -13,31 +12,26 @@ import subprocess
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-APP = str(HERE / "app.py")
 
 def venv_python():
-    """Return path to venv python if it exists, else None."""
-    win = HERE / "venv" / "Scripts" / "python.exe"    # Windows
-    nix = HERE / "venv" / "bin" / "python3"           # macOS/Linux
-    if win.exists():
-        return str(win)
-    if nix.exists():
-        return str(nix)
+    win = HERE / "venv" / "Scripts" / "python.exe"      # Windows
+    nix = HERE / "venv" / "bin" / "python3"             # macOS/Linux
+    if win.exists(): return str(win)
+    if nix.exists(): return str(nix)
     return None
 
-def open_myApp():
+def open_app():
     py = venv_python() or sys.executable
-
-    # Ensure we run in the project folder so relative paths work
     env = os.environ.copy()
-    # (optional) add project root to PATH so chromedriver in project root can be found
+    # Make everything in src/ importable as top-level modules
+    env["PYTHONPATH"] = str(HERE / "src") + os.pathsep + env.get("PYTHONPATH", "")
+    # (optional) expose project root to PATH
     env["PATH"] = str(HERE) + os.pathsep + env.get("PATH", "")
 
     try:
-        # Use cwd=HERE so app.py sees the project as the current folder
-        subprocess.call([py, APP], cwd=str(HERE), env=env)
+        # Run src/interface.py as module "interface"
+        subprocess.call([py, "-m", "interface"], cwd=str(HERE), env=env)
     except Exception as e:
-        # Show a GUI error dialog so double-click users see the issue
         try:
             import tkinter as tk
             from tkinter import messagebox
@@ -47,4 +41,4 @@ def open_myApp():
             raise
 
 if __name__ == "__main__":
-    open_myApp()
+    open_app()
