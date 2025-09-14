@@ -16,7 +16,7 @@ Shufa-Character-Downloader
 │   │   ├── preprocess.py      # Load, save and prepare the settings
 │   │   ├── scrape.py          # Scrapes image URLs and metadata from shufazidian.com
 │   │   └── textRedirector.py  # Redirects or maps text inputs for interface
-│   ├── engine.py              # Core engine that orchestrates scraping, downloading, and preprocessing
+│   ├── engine.py              # Core engine that orchestrates scraping, downloading
 │   ├── interface.py           # User interface logic
 │   └── setting.json           # Configuration file to store user settings
 ├── myApp.py                   # Main entry point to launch the program
