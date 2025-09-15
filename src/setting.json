@@ -1,5 +1,5 @@
 {
-  "wait_time": 15,
+  "wait_time": 10,
   "batch_size": 2,
   "count": 2,
   "character_type_value": "8",

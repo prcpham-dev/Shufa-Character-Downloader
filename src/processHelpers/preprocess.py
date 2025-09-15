@@ -1,6 +1,7 @@
 import json 
+from pathlib import Path
 
-SETTING_PATH = "src/setting.json"
+SETTING_PATH = Path("src") / "setting.json"
 
 def load_settings():
     """
