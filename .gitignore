@@ -2,3 +2,4 @@
 __pycache__/
 shufa.txt
 settings.json
+venv/
