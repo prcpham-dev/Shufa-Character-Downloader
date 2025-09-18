@@ -55,7 +55,7 @@ async def run(author, character_type_value, characters, batch_size=4, wait_time=
                             continue
                         save_author = (author_name or "Unknown").replace("/", "_")
                         tag = "main" if is_match else "other"
-                        out_file = os.path.join(out_dir, f"{idx:02d}:{character}_{save_author}_{tag}.jpg")
+                        out_file = os.path.join(out_dir, f"{idx:02d}_{character}_{save_author}_{tag}.jpg")
                         download_tasks.append(downloadImg(img_url, out_file))
                 if download_tasks:
                     await asyncio.gather(*download_tasks)
