@@ -22,10 +22,10 @@ def prepare_data():
     wait_time = settings.get("wait_time", 15)
     batch_size = settings.get("batch_size", 4)
     count = settings.get("count", 5)
-
     author = settings.get("author", "").strip()
     character_type_value = settings.get("character_type_value", "").strip()
-
     characters = settings.get("characters", "")
     characters = list(dict.fromkeys(characters.replace("\n", "")))
+    characters = [f"{i+1:02d}_{c}" for i, c in enumerate(characters)]
     return author, characters, character_type_value, wait_time, batch_size, count
+

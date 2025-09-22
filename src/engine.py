@@ -1,8 +1,11 @@
-import os,asyncio
+import os, asyncio
 from src.processHelpers.scrape import searchImg
 from src.processHelpers.download import downloadImg
 
 async def search_wrapper(character, author, character_type_value, wait_time, headless, count, semaphore):
+    """
+    Run searchImg with only the character itself (no index).
+    """
     print(f"📝 Working on {character} ...")
     async with semaphore:
         return await asyncio.to_thread(
@@ -12,23 +15,24 @@ async def search_wrapper(character, author, character_type_value, wait_time, hea
 async def run(author, character_type_value, characters, batch_size=4, wait_time=15, count=5, headless=True, cancel_event=None):
     """
     Search and download images for each character.
-    - Saves into images/{character}/
-    - Filenames: {index:03d}_{character}_{author}_{main|other}.jpg
+    - Saves into images/{character_index}/
+    - Filenames: {index:02d}_{character}_{author}_{main|other}.jpg
     """
     semaphore = asyncio.Semaphore(batch_size)
     results = [None] * len(characters)
-    idx_map = {character: i for i, character in enumerate(characters)}
+    char_map = {c: c.split("_", 1)[-1] for c in characters}
+    idx_map = {c: i for i, c in enumerate(characters)}
 
     running = []
     char_iter = iter(characters)
 
-    # Start initial batch
     for _ in range(min(batch_size, len(characters))):
-        character = next(char_iter)
+        character_index = next(char_iter)
+        char_only = char_map[character_index]
         task = asyncio.create_task(
-            search_wrapper(character, author, character_type_value, wait_time, headless, count, semaphore)
+            search_wrapper(char_only, author, character_type_value, wait_time, headless, count, semaphore)
         )
-        running.append((character, task))
+        running.append((character_index, task))
 
     while running:
         if cancel_event and cancel_event.is_set():
@@ -37,25 +41,27 @@ async def run(author, character_type_value, characters, batch_size=4, wait_time=
 
         done, _ = await asyncio.wait([t for _, t in running], return_when=asyncio.FIRST_COMPLETED)
         finished = []
-        for character, task in running:
+        for character_index, task in running:
             if task in done:
                 found = task.result()
-                i = idx_map[character]
+                i = idx_map[character_index]
                 results[i] = found
-                finished.append((character, task))
+                finished.append((character_index, task))
 
                 download_tasks = []
                 if not found:
-                    print(f"❌ No images for {character}")
+                    print(f"❌ No images for {character_index}")
                 else:
-                    out_dir = os.path.join("images", character)
+                    out_dir = os.path.join("images", character_index)
                     os.makedirs(out_dir, exist_ok=True)
                     for idx, (img_url, author_name, is_match) in enumerate(found, start=1):
                         if not img_url:
                             continue
                         save_author = (author_name or "Unknown").replace("/", "_")
                         tag = "main" if is_match else "other"
-                        out_file = os.path.join(out_dir, f"{idx:02d}_{character}_{save_author}_{tag}.jpg")
+                        char_only = char_map[character_index]
+                        out_file = os.path.join(out_dir, f"{idx:02d}_{char_only}_{save_author}_{tag}.jpg")
+
                         download_tasks.append(downloadImg(img_url, out_file))
                 if download_tasks:
                     await asyncio.gather(*download_tasks)
@@ -68,11 +74,12 @@ async def run(author, character_type_value, characters, batch_size=4, wait_time=
                 if cancel_event and cancel_event.is_set():
                     print("⏹️ Cancel requested. Stopping batch...")
                     break
-                character = next(char_iter)
+                character_index = next(char_iter)
+                char_only = char_map[character_index]
                 task = asyncio.create_task(
-                    search_wrapper(character, author, character_type_value, wait_time, headless, count, semaphore)
+                    search_wrapper(char_only, author, character_type_value, wait_time, headless, count, semaphore)
                 )
-                running.append((character, task))
+                running.append((character_index, task))
         except StopIteration:
             pass
 
@@ -93,6 +100,6 @@ if __name__ == "__main__":
         author="王羲之", character_type_value="8",
         batch_size=2,
         count=3, wait_time=15,
-        characters=["马", "秋", "饮"],
+        characters=["01_马", "02_秋", "03_饮"],
         headless=False
     )
