@@ -14,19 +14,25 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 def venv_python():
+    """Return Python inside venv if it exists, else None."""
     win = HERE / "venv" / "Scripts" / "python.exe"      # Windows
     nix = HERE / "venv" / "bin" / "python3"             # macOS/Linux
-    if win.exists(): return str(win)
-    if nix.exists(): return str(nix)
+    if win.exists():
+        return str(win)
+    if nix.exists():
+        return str(nix)
     return None
 
 def open_app():
     py = venv_python() or sys.executable
     env = os.environ.copy()
+
     # Make everything in src/ importable as top-level modules
     env["PYTHONPATH"] = str(HERE / "src") + os.pathsep + env.get("PYTHONPATH", "")
-    # (optional) expose project root to PATH
-    env["PATH"] = str(HERE) + os.pathsep + env.get("PATH", "")
+
+    # ⚠️ Removed PATH override — this avoids accidentally shadowing chromedriver.exe
+    # If you ever need to add HERE to PATH, do it at the *end*, not the front:
+    # env["PATH"] = env.get("PATH", "") + os.pathsep + str(HERE)
 
     try:
         # Run src/interface.py as module "interface"
@@ -35,7 +41,8 @@ def open_app():
         try:
             import tkinter as tk
             from tkinter import messagebox
-            root = tk.Tk(); root.withdraw()
+            root = tk.Tk()
+            root.withdraw()
             messagebox.showerror("Shufa Downloader – Launch Error", str(e))
         finally:
             raise
