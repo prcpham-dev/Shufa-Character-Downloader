@@ -13,6 +13,7 @@ Shufa-Character-Downloader
 ├── src/
 │   ├── processHelpers/        # Helper scripts for different processing steps
 │   │   ├── download.py        # Handles downloading calligraphy images
+│   │   ├── filtering.py       # Handles finiding the right urls to use for each character.
 │   │   ├── preprocess.py      # Load, save and prepare the settings
 │   │   ├── scrape.py          # Scrapes image URLs and metadata from shufazidian.com
 │   │   └── textRedirector.py  # Redirects or maps text inputs for interface
@@ -55,15 +56,14 @@ Shufa-Character-Downloader
 
 4. **Run the program:**
 - **Windows:**  
-Double-click `myApp.py`.
-If it opens in an editor instead of running, right-click → *Open with* → choose **Python** and check “Always use this app”.
+    - Double-click `myApp.py`.
+    - If it opens in an editor instead of running, right-click → *Open with* → choose **Python**.
 
 - **macOS:**  
 Double-click `myApp.py`.  
 If it opens in a text editor instead of running:  
-    1. Right-click `myApp.py` → *Get Info*.  
-    2. Under *Open with*, select **Python Launcher**.  
-    3. Click **Change All…** so `.py` files always use Python.  
+    - Step 1: Right-click `myApp.py` → *Get Info*.  
+    - Step 2: Under *Open with*, select **Python Launcher**.  
 
 - **Linux:**  
 Make the file executable (one-time setup):  
@@ -73,19 +73,19 @@ Make the file executable (one-time setup):
 ## How to Use
 
 1. **Fill in your input:**
-- **Wait time:** Number of seconds to wait between downloads (helps avoid being blocked and stuck on one task)
-- **Process Amount:** Number of character being progress at a time.
-- **Download Amount:** Total number of images to download per character.
-- **Author:** Enter the calligraphy master’s name (e.g., 苏轼).
-- **Character Type:** Choose calligraphy style (e.g., 行书, 草书, 楷书).
-- **Chinese Text:** Paste or type in Chinese characters, phrases, or full poems you want to download. !!!Only keep Chinese character
+    - **Wait time:** Number of seconds to wait between downloads (helps avoid being blocked and stuck on one task)
+    - **Process Amount:** Number of character being progress at a time.
+    - **Download Amount:** Total number of images to download per character.
+    - **Author:** Enter the calligraphy master’s name (e.g., 苏轼).
+    - **Character Type:** Choose calligraphy style (e.g., 行书, 草书, 楷书).
+    - **Chinese Text:** Paste or type in Chinese characters, phrases, or full poems you want to download. !!!Only keep Chinese character
 
 2. **Start the download:**
-- Click **Start** to begin fetching images.
-- Progress and logs will be shown in **Logs** tab.
-- Download images are saved into the local images/ folder, organized by character.
+    - Click **Start** to begin fetching images.
+    - Progress and logs will be shown in **Logs** tab.
+    - Download images are saved into the local images/ folder, organized by character.
 
 3. **Manage images:**
-- Use **Delete Images** to clear previously download images.
-- Use **Open File** to open the `images/` file 
-- Use **Save Settings** to preserve your current configuration for next time.
+    - Use **Delete Images** to clear previously download images.
+    - Use **Open File** to open the `images/` file 
+    - Use **Save Settings** to preserve your current configuration for next time.
