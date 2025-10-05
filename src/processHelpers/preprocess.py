@@ -18,6 +18,9 @@ def save_settings(settings):
         json.dump(settings, f, ensure_ascii=False, indent=2)
     
 def prepare_data():
+    """
+    Prepare and return configuration data from settings.
+    """
     settings = load_settings()
     wait_time = settings.get("wait_time", 15)
     batch_size = settings.get("batch_size", 4)
